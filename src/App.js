@@ -1,33 +1,30 @@
 import React from 'react';
-import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import Link from '@material-ui/core/Link';
-import ProTip from './ProTip';
+// import Container from '@material-ui/core/Container';
+// import Typography from '@material-ui/core/Typography';
+// import Box from '@material-ui/core/Box';
+// // import Link from '@material-ui/core/Link';
+// import ProTip from './ProTip';
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Provider as ReduxProvider } from "react-redux";
+import configureStore from "./redux/store";
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import Home from './pages/Home'
+import Shop from './pages/Shop'
+import Cupboard from './pages/Cupboard'
+import Meals from './pages/Meals'
+
+const reduxStore = configureStore();
 
 export default function App() {
   return (
-    <Container maxWidth="sm">
-      <Box my={4}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          Create React App v4-beta example
-        </Typography>
-        <ProTip />
-        <Copyright />
-      </Box>
-    </Container>
+    <ReduxProvider store={reduxStore}>
+      <Router>
+        <Route exact path="/" component={Home} />
+        <Route path="/shop" component={Shop} />
+        <Route path="/cupboard" component={Cupboard} />
+        <Route path="/meals" component={Meals} />
+        {/*<Route path="/meals" component={Meals} /> */}
+      </Router>
+    </ReduxProvider>
   );
 }
