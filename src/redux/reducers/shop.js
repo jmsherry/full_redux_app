@@ -27,7 +27,7 @@ const defaultState = {
   }]
 };
 
-const cupboardReducer = (state = defaultState, action) => {
+const shopReducer = (state = defaultState, action) => {
   switch (action.type) {
     case ACTIONS.Types.ADD_ITEM: {
       let item = action.payload;
@@ -51,4 +51,4 @@ const cupboardReducer = (state = defaultState, action) => {
   }
 };
 
-export default cupboardReducer;
+export default shopReducer;
