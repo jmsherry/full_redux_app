@@ -6,7 +6,9 @@ export default function Cupboard(props) {
   return (
     <>
       <Header />
-      <h1>Cupboard</h1>
+      <main styles={{ minHeight: '100vh' }}>
+        <h1>Cupboard</h1>
+      </main>
       <Footer />
     </>
   );

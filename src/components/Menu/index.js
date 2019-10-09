@@ -1,15 +1,14 @@
 import React from 'react';
-// import { withStyles } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-// import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
+import { Link } from 'react-router-dom';
+// import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+// import ListItemIcon from '@material-ui/core/ListItemIcon';
+// import ListItemText from '@material-ui/core/ListItemText';
+// import InboxIcon from '@material-ui/icons/MoveToInbox';
+// import MailIcon from '@material-ui/icons/Mail';
 import ACTIONS from "./../../redux/actions/ui";
 import { connect } from "react-redux";
 
@@ -35,19 +34,9 @@ function Menu(props) {
       onKeyDown={props.toggleMenu}
     >
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+        {['Home', 'Shop', 'Cupboard', 'Meals'].map((text) => (
           <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
+            <Link to={text === 'Home' ? '/' : `/${text.toLowerCase()}`}>{text}</Link>
           </ListItem>
         ))}
       </List>
@@ -64,10 +53,6 @@ function Menu(props) {
     </div>
   );
 }
-
-// Cupboard.defaultProps = {
-//   items: []
-// };
 
 const mapStateToProps = state => ({
   menuOpen: state.ui.menuOpen
