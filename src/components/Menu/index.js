@@ -1,8 +1,10 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { useTheme } from '@material-ui/styles';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
-import { Link } from 'react-router-dom';
+import { NavLink as RouterLink } from 'react-router-dom';
+import Link from '@material-ui/core/Link';
 // import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 // import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -13,32 +15,54 @@ import ACTIONS from "./../../redux/actions/ui";
 import { connect } from "react-redux";
 
 const useStyles = makeStyles({
-  list: {
+  listContainer: {
     width: 250,
   },
-  fullList: {
-    width: 'auto',
+  list: {
+    padding: 0,
   },
+  item: {
+    padding: 0,
+  },
+  link: {
+    textDecoration: 'none',
+    flexGrow: 1,
+    padding: '15px',
+    color: '#000',
+    '&:hover': {
+      fontWeight: 'bold'
+    },
+    '&.active': {
+      fontWeight: 'bold',
+      backgroundColor: '#666',
+      color: '#fff',
+    },
+  }
 });
 
 
 
 function Menu(props) {
   const classes = useStyles();
+  const theme = useTheme();
 
   const sideList = side => (
     <div
-      className={classes.list}
+      className={classes.listContainer}
       role="presentation"
       onClick={props.toggleMenu}
       onKeyDown={props.toggleMenu}
     >
-      <List>
-        {['Home', 'Shop', 'Cupboard', 'Meals'].map((text) => (
-          <ListItem button key={text}>
-            <Link to={text === 'Home' ? '/' : `/${text.toLowerCase()}`}>{text}</Link>
-          </ListItem>
-        ))}
+      <List className={classes.list}>
+        {['Home', 'Shop', 'Cupboard', 'Meals', 'Test'].map((text) => {
+          // const isHomeRoute = 
+          const Link1 = React.forwardRef((props, ref) => <RouterLink innerRef={ref} activeClassName={'active'} {...props} className={classes.link} />);
+          return (
+            <ListItem button key={text} className={classes.item}>
+              <Link component={Link1} to={text === 'Home' ? '/' : `/${text.toLowerCase()}`} exact={true}>{text}</Link>
+            </ListItem>
+          );
+        })}
       </List>
     </div>
   );
